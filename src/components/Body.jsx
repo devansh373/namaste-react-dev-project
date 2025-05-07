@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { SWIGGY_API_URL } from "../constants";
+import fetchRestaurantsContext from "../context/fetchRestaurantsContext";
+import FetchRestaurantsContext from "../context/fetchRestaurantsContext";
 
 function Body() {
   // const burgerKing = {
@@ -9,34 +11,23 @@ function Body() {
   //   cuisines: ["Burgers", "American"],
   //   ratings: "4.2",
   // };
-  const [restaurants, setRestaurants] = useState([]);
+  
+  // useEffect(() => {
+  //   restaurants = useContext(FetchRestaurantsContext);
+  // }, [restaurants]);
+  const {restaurants} = useContext(FetchRestaurantsContext);
   useEffect(() => {
-    getRestaurants();
-    console.log(restaurants);
-    // return () => {};
-  }, []);
+      // console.log()
+      console.log(restaurants);
+      
+    }, [restaurants]);
+  
+  
 
-  function getRestaurants() {
-    fetch(
-      SWIGGY_API_URL
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        // res?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants.map(
-        //   (restaurant) => console.log(restaurant?.info?.name)
-        // )
-        const res2 =
-          res?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-            ?.restaurants;
-        console.log(res2);
-        setRestaurants(res2);
-        console.log(restaurants);
-      });
-  }
   return restaurants?.length > 0 ? (
-    <div className="flex flex-wrap gap-[20] items-center justify-center" >
+    <div className="flex flex-wrap gap-[20] items-center justify-center">
       {restaurants.map((restaurant) => (
-        <RestaurantCard data={restaurant} key={restaurant?.info?.id}/>
+        <RestaurantCard data={restaurant} key={restaurant?.info?.id} />
       ))}
     </div>
   ) : (
