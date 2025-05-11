@@ -2,7 +2,7 @@ import React from 'react'
 
 function Shimmer() {
   return (
-    <div>Shimmer</div>
+    <div data-testid="shimmer-test-id">Shimmer</div>
   )
 }
 

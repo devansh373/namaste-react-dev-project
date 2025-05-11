@@ -3,6 +3,7 @@ import RestaurantCard from "./RestaurantCard";
 import { SWIGGY_API_URL } from "../constants";
 import fetchRestaurantsContext from "../context/fetchRestaurantsContext";
 import FetchRestaurantsContext from "../context/fetchRestaurantsContext";
+import Shimmer from "./Shimmer";
 
 function Body() {
   // const burgerKing = {
@@ -11,18 +12,24 @@ function Body() {
   //   cuisines: ["Burgers", "American"],
   //   ratings: "4.2",
   // };
-  
+
   // useEffect(() => {
   //   restaurants = useContext(FetchRestaurantsContext);
   // }, [restaurants]);
-  const {restaurants} = useContext(FetchRestaurantsContext);
+  const { restaurants } = useContext(FetchRestaurantsContext);
   useEffect(() => {
-      // console.log()
-      console.log(restaurants);
-      
-    }, [restaurants]);
-  
-  
+    // console.log()
+    console.log(restaurants);
+  }, [restaurants]);
+
+  useEffect(() => {
+    // getRestaurants();
+    fetch(SWIGGY_API_URL)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      });
+  });
 
   return restaurants?.length > 0 ? (
     <div className="flex flex-wrap gap-[20] items-center justify-center">
@@ -31,7 +38,7 @@ function Body() {
       ))}
     </div>
   ) : (
-    <h1>hey</h1>
+    <Shimmer/>
   );
 }
 

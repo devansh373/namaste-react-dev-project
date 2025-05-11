@@ -32,7 +32,7 @@ function Header() {
             <li>Cart-{cartItems.length} items</li>
           </Link>
           {/* <li onClick={handleAddItem}>Add Itemm</li> */}
-          {/* <li>{isOnline ? "Online" : "Offline"}</li> */}
+          <li data-testid="online-status">{isOnline ? "Online" : "Offline"}</li>
           {/* restrict user from clicking any restaurant while offline or you can show dino game(google) lol */}
         </ul>
       </div>
