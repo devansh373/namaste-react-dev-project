@@ -4,6 +4,7 @@ import { SWIGGY_API_URL } from "../constants";
 import fetchRestaurantsContext from "../context/fetchRestaurantsContext";
 import FetchRestaurantsContext from "../context/fetchRestaurantsContext";
 import Shimmer from "./Shimmer";
+import SearchedRestaurantsContext from "../context/searchedRestaurants";
 
 function Body() {
   // const burgerKing = {
@@ -17,11 +18,14 @@ function Body() {
   //   restaurants = useContext(FetchRestaurantsContext);
   // }, [restaurants]);
   const { restaurants } = useContext(FetchRestaurantsContext);
+  const { searchedRestaurants, inputValue } = useContext(
+    SearchedRestaurantsContext
+  );
   useEffect(() => {
     // console.log()
     console.log(restaurants);
   }, [restaurants]);
-
+  console.log(inputValue);
   useEffect(() => {
     // getRestaurants();
     fetch(SWIGGY_API_URL)
@@ -29,16 +33,30 @@ function Body() {
       .then((res) => {
         console.log(res);
       });
-  });
-
-  return restaurants?.length > 0 ? (
+  }, []);
+  if (inputValue && searchedRestaurants.length >= 0) {
+    return (
+      <div className="flex flex-wrap gap-[20] items-center justify-center">
+        {searchedRestaurants?.length > 0 ? (
+          searchedRestaurants.map((restaurant) => (
+            <RestaurantCard data={restaurant} key={restaurant?.info?.id} />
+          ))
+        ) : (
+          <h1>No results found</h1>
+        )}
+      </div>
+    );
+  }
+  return (
     <div className="flex flex-wrap gap-[20] items-center justify-center">
-      {restaurants.map((restaurant) => (
-        <RestaurantCard data={restaurant} key={restaurant?.info?.id} />
-      ))}
+      {restaurants?.length > 0 ? (
+        restaurants.map((restaurant) => (
+          <RestaurantCard data={restaurant} key={restaurant?.info?.id} />
+        ))
+      ) : (
+        <Shimmer />
+      )}
     </div>
-  ) : (
-    <Shimmer/>
   );
 }
 

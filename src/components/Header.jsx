@@ -17,22 +17,22 @@ function Header() {
     dispatch(addItem("Mango"));
   };
   return (
-    <div className="flex my-7 ">
+    <div className="flex  my-7 ">
       <Title />
       <SearchRestaurant />
-      <div className="nav-items w-[100%]">
+      <div className="nav-items w-[300] ml-[15%]">
         <ul className=" h-[100%] flex justify-around  [&_*]:cursor-pointer  [&_*:hover]:underline [&_*]:items-center">
-          <li>Home</li>
+          {/* <li>Home</li>
           <Link to={"/about"}>
             <li>About</li>
           </Link>
-          <li>Contact</li>
+          <li>Contact</li> */}
           {/* <li>{user.name}</li> */}
           <Link to={"/cart"}>
             <li>Cart-{cartItems.length} items</li>
           </Link>
           {/* <li onClick={handleAddItem}>Add Itemm</li> */}
-          <li data-testid="online-status">{isOnline ? "Online" : "Offline"}</li>
+          <li data-testid="online-status">You're {isOnline ? "Online" : "Offline"}</li>
           {/* restrict user from clicking any restaurant while offline or you can show dino game(google) lol */}
         </ul>
       </div>

@@ -16,6 +16,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import "./index.css";
 import FetchRestaurantsContext from "./context/fetchRestaurantsContext";
+import SearchedRestaurantsContext from "./context/searchedRestaurants";
 
 // import Cart from "./components/Cart";
 // lazy load Cart component
@@ -68,6 +69,8 @@ async function getRestaurants() {
 
 const AppLayout = () => {
   const [restaurants, setRestaurants] = useState([]);
+  const [searchedRestaurants, setSearchedRestaurants] = useState([]);
+  const [inputValue, setInputValue] = useState("")
   // const restaurantsContext = useContext(FetchRestaurantsContext);
   // console.log(restaurantsContext)
   
@@ -86,6 +89,7 @@ const AppLayout = () => {
           res?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
             ?.restaurants;
         setRestaurants(data || []);
+        setSearchedRestaurants(data||[]);
       });
     // console.log(restaurants);
     // return () => {};
@@ -111,10 +115,13 @@ const AppLayout = () => {
     <>
       <Provider store={store}>
         <FetchRestaurantsContext.Provider value={{restaurants,setRestaurants}}>
+          <SearchedRestaurantsContext.Provider value={{searchedRestaurants,setSearchedRestaurants,inputValue,setInputValue}}>
+
           <Header />
           <Outlet />
           {/* <Body /> */}
           <Footer />
+          </SearchedRestaurantsContext.Provider>
         </FetchRestaurantsContext.Provider>
       </Provider>
     </>

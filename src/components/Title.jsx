@@ -1,11 +1,18 @@
 // const Title = () => <h1>Hunger Full</h1>;
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Title() {
   return (
-    <h1 className=' w-[600] p-2 text-2xl text-center '> <span className='cursor-pointer transition delay-150 ease hover:text-violet-700'>Hunger Full</span></h1>
-    
-  )
+    <Link to={"/"} className=" w-[370] p-2 text-4xl text-center ">
+      {" "}
+
+      {/* transition delay-150 ease */}
+      <span className="cursor-pointer  text-red-700 font-medium hover:text-red-400">
+        Hungerful
+      </span>
+    </Link>
+  );
 }
 
-export default Title
+export default Title;
